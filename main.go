@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
 
 	"gopkg.in/yaml.v1"
@@ -17,12 +16,12 @@ import (
 
 func main() {
 
-	File, err := os.Open("application.license.yaml")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// File, err := os.Open("application.license.yaml")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
-	byteValue, err := ioutil.ReadAll(File)
+	byteValue, err := ioutil.ReadFile("application.license.yaml")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -51,18 +50,16 @@ func main() {
 	}
 
 	{
-		yamlFile, err := os.Open("test.yaml")
+		yamlFile, err := ioutil.ReadFile("test.yaml")
 		// if we os.Open returns an error then handle it
 		if err != nil {
 			fmt.Println(err)
 		}
 		fmt.Println("Successfully Opened test.yaml")
 
-		byteValu, _ := ioutil.ReadAll(yamlFile)
-
 		st := &Config{}
 
-		yaml.Unmarshal(byteValu, st)
+		yaml.Unmarshal(yamlFile, st)
 
 		fmt.Println(st.HostService)
 	}
